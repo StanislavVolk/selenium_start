@@ -2,7 +2,6 @@ package com.geekbrains.Lesson_4;
 
 public class Triangle {
     public static Double TriangleF(int a, int b, int c) {
-
         a = Math.abs(a);
         b = Math.abs(b);
         c = Math.abs(c);
