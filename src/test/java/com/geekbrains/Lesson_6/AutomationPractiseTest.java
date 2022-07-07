@@ -1,12 +1,18 @@
 package com.geekbrains.Lesson_6;
 
+import com.geekbrains.Lesson_7.AdditionalAllureSteps;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.events.EventFiringDecorator;
 
 import static org.junit.Assert.assertTrue;
 
+@Feature("Вход на сайт под тестовым логином")
 public class AutomationPractiseTest {
     WebDriver driver;
 
@@ -17,12 +23,13 @@ public class AutomationPractiseTest {
 
     @BeforeEach
     void initDriver() {
-        driver = new ChromeDriver();
+        driver = new EventFiringDecorator(new AdditionalAllureSteps()).decorate(new ChromeDriver());
         driver.get("https://diary.ru");
     }
 
     @Test
-    @DisplayName("Тест: Вход на сайт")
+    @DisplayName("Тест: Вход на сайт Diary.ru")
+    @Story("Тест - Тест")
     void logInToDiary() throws InterruptedException {
         Thread.sleep(5000);
         LoginPage loginPage = new LoginPage(driver);
@@ -36,9 +43,13 @@ public class AutomationPractiseTest {
         loginPage.singInButton.click();
         Thread.sleep(5000);
         String s = loginPage.userEquals.getText();
+        Allure.step("Проверяем Логин после авторизации.");
         assertTrue(s.equals("volkovc"));
         System.out.println("Тест пройден!");
     }
+
+
+
 
     @AfterEach
     void killDriver() {
