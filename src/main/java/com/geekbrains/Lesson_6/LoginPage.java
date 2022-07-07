@@ -1,5 +1,6 @@
 package com.geekbrains.Lesson_6;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,6 +32,7 @@ public class LoginPage {
     @FindBy(id = "loginform-password")
     public WebElement passwordField;
 
+    @Step("Проходим Капчу")
     public void LocReCap() {
         driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@title='reCAPTCHA']")));
     }
@@ -38,12 +40,15 @@ public class LoginPage {
     @FindBy(xpath = "//div[@class='recaptcha-checkbox-border']")
     public WebElement reCaptCheckBox;
 
+    @Step("Выходим из Капчи")
     public void ReCaptchaExit() {
         driver.switchTo().parentFrame();//Долго парился и не мог понять, почему у меня кнопка входа не работает)))
     }
 
     @FindBy(id = "login_btn")
     public WebElement singInButton;
+
+
 
 
     @FindBy(xpath = "//li[@class='username']")
